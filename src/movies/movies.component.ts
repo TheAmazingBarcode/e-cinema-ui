@@ -11,8 +11,9 @@ import {
 } from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {GenreService} from "../services/genre.service";
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: 'app-movies',
@@ -34,7 +35,9 @@ export class MoviesComponent implements OnInit {
   movies: Movie[] = [];
 
   constructor(private movieService: MovieService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router:Router,
+              private dataService:DataService) {
   }
 
   ngOnInit() {
@@ -54,5 +57,10 @@ export class MoviesComponent implements OnInit {
       default:
         this.movieService.getAllMovies().subscribe(data => this.movies = data);
     }
+  }
+
+  public viewMovie(movie:Movie):void{
+    this.dataService.setData(movie);
+    this.router.navigateByUrl('movies/individual');
   }
 }

@@ -1,4 +1,5 @@
 import {Genre} from "./Genre";
+import {Actor} from "./Actor";
 
 export interface Movie {
   id: Number
@@ -6,4 +7,5 @@ export interface Movie {
   description: String
   duration: Number
   genre:Genre
+  actors:Actor[]
 }
