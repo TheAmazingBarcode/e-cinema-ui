@@ -1,0 +1,18 @@
+#intro_1{
+  background-color: #010013;
+  border-radius: 15px;
+  border-color: transparent;
+}
+
+#discover{
+  background-color: #010013;
+  border-color: transparent;
+}
+
+#discover:hover{
+  background-color: #060032;
+}
+
+#discover:active{
+  background-color: #0f007f;
+}

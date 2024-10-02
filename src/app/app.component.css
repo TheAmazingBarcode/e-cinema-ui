@@ -1,0 +1,11 @@
+#nav-container{
+  background-color: #010013;
+}
+
+.nav-item:hover {
+  background-color: rgba(0, 0, 131, 0.3);
+}
+
+#nav-wrapper {
+  background-color: #010013;
+}
