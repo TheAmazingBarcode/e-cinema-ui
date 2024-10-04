@@ -1,0 +1,18 @@
+<div class="container py-4 text-center">
+  <div class="row py-2">
+    <div class="mx-auto mt-4 col-8">
+      <form (ngSubmit)="onSumbit()" [formGroup]="profile">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email" placeholder="name@domain.com">
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" placeholder="****">
+          <mat-hint>Choose a strong password</mat-hint>
+        </mat-form-field>
+        <button type="submit" mat-flat-button>Log In</button>
+      </form>
+    </div>
+  </div>
+</div>

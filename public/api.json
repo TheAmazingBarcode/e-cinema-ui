@@ -3,5 +3,14 @@
   "port": ":8080",
   "mov": "/movies",
   "all": "/all",
-  "genre": "/genres"
+  "genre": "/genres",
+  "user": "/user",
+  "login": "/login",
+  "signup": "/signup",
+  "prod": "/producers",
+  "act": "/actors",
+  "new": "/new",
+  "proj": "/projections",
+  "add": "/add",
+  "cat": "/catalog"
 }

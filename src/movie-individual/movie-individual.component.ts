@@ -5,6 +5,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {Movie} from "../model/Movie";
 import {DataService} from "../services/data.service";
 import {MatList, MatListItem, MatListSubheaderCssMatStyler} from "@angular/material/list";
+import {MatIcon} from "@angular/material/icon";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-movie-individual',
@@ -19,7 +21,8 @@ import {MatList, MatListItem, MatListSubheaderCssMatStyler} from "@angular/mater
     MatProgressSpinner,
     MatList,
     MatListItem,
-    MatListSubheaderCssMatStyler
+    MatListSubheaderCssMatStyler,
+    MatIcon
   ],
   templateUrl: './movie-individual.component.html',
   styleUrl: './movie-individual.component.css'
@@ -28,7 +31,8 @@ export class MovieIndividualComponent implements OnInit {
 
   movie: Movie | undefined;
 
-  constructor(private dataService:DataService) {
+  constructor(private dataService:DataService,
+              private router:Router) {
   }
 
   ngOnInit(): void {
@@ -37,6 +41,10 @@ export class MovieIndividualComponent implements OnInit {
 
   private loadData(): void {
       this.movie = this.dataService.getData();
+  }
+
+  public navigate():void{
+    this.router.navigateByUrl('/movies/projection/'+this.movie?.id)
   }
 
 }

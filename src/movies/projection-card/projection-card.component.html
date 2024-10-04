@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="mx-auto mt-4 col-md-4">
+    <mat-card class="py-4">
+      <mat-card-title>{{ projection?.movie?.name }}</mat-card-title>
+      <mat-card-subtitle>{{
+          projection?.movie?.genre?.name
+        }}
+      </mat-card-subtitle>
+      <mat-card-subtitle class="mt-2">
+        {{timeStr}}
+      </mat-card-subtitle>
+      <mat-card-content class="py-4" style="max-height: 150px;">
+        {{'Price:' + ' '+projection?.price +'$'}}
+      </mat-card-content>
+      <div class="mt-2 d-flex justify-content-center">
+        <mat-card-actions>
+          <button (click)="reserve()" mat-button>Reserve</button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </div>
+</div>

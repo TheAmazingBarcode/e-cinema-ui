@@ -1,0 +1,61 @@
+<div class="container py-4 text-center">
+  <div class="row py-2">
+    <div class="mx-auto mt-4 col-8">
+      <form (ngSubmit)="onSubmit()" [formGroup]="movie">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput formControlName="name" placeholder="Name of Movie">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Description</mat-label>
+          <textarea formControlName="description" matInput placeholder="Description of the movie"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Duration</mat-label>
+          <input type="number" matInput formControlName="duration" placeholder="Time in minutes">
+        </mat-form-field>
+
+        <mat-form-field class="my-2 py-2">
+          <mat-label>Date of Release</mat-label>
+          <input matInput formControlName="createdAt" [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+        <div class="d-flex justify-content-between">
+          <mat-form-field>
+            <mat-label>Genre</mat-label>
+            <mat-select formControlName="genre">
+              @for (genre of genreArr; track genre) {
+                <mat-option [value]="genre">{{ genre.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Producer</mat-label>
+            <mat-select formControlName="producer">
+              @for (producer of producerArr; track producerArr) {
+                <mat-option [value]="producer">{{ producer.firstName + ' ' + producer.lastName }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Actors</mat-label>
+            <mat-select formControlName="actors" multiple>
+              @for (actor of actorArr; track actor) {
+                <mat-option [value]="actor">{{ actor.firstName + ' ' + actor.lastName }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <button type="submit" mat-flat-button>Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

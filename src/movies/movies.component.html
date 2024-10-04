@@ -1,26 +1,32 @@
 <div class="container py-4 text-center">
   <div class="row py-2">
-    @if (movies.length > 0) {
-      @for (movie of movies; track movie) {
-        <div class="mt-4 col-3">
-          <mat-card class="py-4">
-            <mat-card-title>{{ movie.name }}</mat-card-title>
-            <mat-card-subtitle>{{ movie.genre.name }}</mat-card-subtitle>
-            <mat-card-content class="py-4" style="overflow-y:scroll; max-height: 150px;">{{ movie.description }}
-            </mat-card-content>
-            <div class="mt-2 d-flex justify-content-center">
-              <mat-card-actions>
-                <button mat-button (click)="viewMovie(movie)">Detailed</button>
-              </mat-card-actions>
-              <mat-card-actions>
-                <button mat-button>Projections</button>
-              </mat-card-actions>
+    <div class="col">
+      <mat-tab-group [(selectedIndex)]="index" [dynamicHeight]="true">
+        <mat-tab label="Movies">
+          @if (movies.length > 0) {
+            <div class="row">
+              @for (movie of movies; track movie) {
+                <app-movie-card [movie]="movie"></app-movie-card>
+              }
             </div>
-          </mat-card>
-        </div>
-      }
-    }
-    @else{<mat-spinner color="primary" diameter="200" class="mx-auto"/>
-    }
+          } @else {
+            <mat-spinner color="primary" diameter="200" class="mx-auto"/>
+          }
+        </mat-tab>
+        <mat-tab label="Projections">
+          @if (projections.length > 0) {
+            <div class="row">
+              @for (projection of projections; track projection) {
+                <app-projection-card [projection]="projection"></app-projection-card>
+              }
+            </div>
+          } @else {
+            <mat-spinner color="primary" diameter="200" class="mx-auto"/>
+          }
+        </mat-tab>
+        <mat-tab label="Your Catalog"> Content 3</mat-tab>
+      </mat-tab-group>
+    </div>
+
   </div>
 </div>

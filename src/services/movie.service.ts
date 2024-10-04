@@ -20,4 +20,8 @@ export class MovieService {
     return this.client.get<Movie[]>(config.base_url + config.port + config.mov + config.genre + '/' + id);
   }
 
+  public newMovie(movie:Movie):Observable<Movie>{
+    return this.client.post<Movie>(config.base_url+config.port+config.mov+config.new,movie);
+  }
+
 }
