@@ -12,5 +12,7 @@
   "new": "/new",
   "proj": "/projections",
   "add": "/add",
-  "cat": "/catalog"
+  "cat": "/catalog",
+  "update": "/update",
+  "rev": "/reviews"
 }

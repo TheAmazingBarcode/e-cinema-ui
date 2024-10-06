@@ -1,0 +1,24 @@
+<div class="row my-4">
+  <div class="mx-auto col-md-4">
+    <mat-card class="py-4">
+      <mat-card-title>{{ projection.name }}</mat-card-title>
+      <mat-card-subtitle>{{ projection.price + '$' }}</mat-card-subtitle>
+      <mat-card-content class="py-4" style="max-height: 150px;">{{ this.timeStr }}
+      </mat-card-content>
+      <div class="mt-2 d-flex justify-content-center">
+        <mat-card-footer>{{ projection.status }}
+          <mat-toolbar>
+            <span class="example-spacer"></span>
+            <button (click)="update('WATCH')" mat-icon-button class="example-icon" >
+              <mat-icon>check</mat-icon>
+            </button>
+            <button (click)="update('CANCEL')" mat-icon-button class="example-icon" >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-toolbar>
+        </mat-card-footer>
+
+      </div>
+    </mat-card>
+  </div>
+</div>

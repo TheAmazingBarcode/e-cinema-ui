@@ -1,0 +1,9 @@
+<div class="container py-4 text-center">
+  <div class="row py-2">
+    <div class="col-3 mx-auto">
+      @for (review of reviews; track review){
+        <app-review-card [review]="review"></app-review-card>
+      }
+    </div>
+  </div>
+</div>

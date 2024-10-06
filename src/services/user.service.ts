@@ -5,6 +5,8 @@ import {User} from "../model/User";
 import config from "../../public/api.json"
 import {AuthDto} from "../model/AuthDto";
 import Swal from "sweetalert2";
+import {AddCatalogDto} from "../model/AddCatalogDto";
+import {UpdateDto} from "../model/UpdateDto";
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +26,16 @@ export class UserService {
     }));
   }
 
-  public addToCatalog(map:Map<String,Number>):Observable<String>{
-    return this.client.post<String>(config.base_url+config.port+config.user+config.add,map).pipe(catchError(error => {
+  public addToCatalog(obj:AddCatalogDto):Observable<any>{
+    return this.client.post(config.base_url+config.port+config.user+config.add,obj,{responseType:'text'})
+      .pipe(catchError(error => {
       this.possibleDuplicate();
       return throwError(()=> new Error('Possible duplicate reservation, try again'))
     }));
+  }
+
+  public updateCatalog(obj: UpdateDto):Observable<string>{
+    return this.client.put(config.base_url+config.port+config.user+config.update,obj,{responseType:'text'})
   }
 
   private incorrectDetails() {

@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="mt-4 col-md-12">
+    <mat-card class="py-3">
+      <mat-card-title class="my-2">
+        @if (review?.isPositive){
+          Positive <mat-icon class="mx-2"  style="vertical-align: -3px">thumb_up</mat-icon>
+        } @else {
+          Negative <mat-icon  style="vertical-align: -3px">thumb_down</mat-icon>
+        }
+      </mat-card-title>
+      <mat-card-subtitle class="mb-4"><mat-icon  style="vertical-align: -3px">person</mat-icon> {{ review?.user }}</mat-card-subtitle>
+      <mat-card-content class="py-2" style="max-height: 150px;">{{ review?.explanation }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

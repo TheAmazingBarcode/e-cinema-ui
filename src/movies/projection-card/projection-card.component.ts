@@ -9,6 +9,7 @@ import {StorageService} from "../../services/storage.service";
 import Swal from "sweetalert2";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {AddCatalogDto} from "../../model/AddCatalogDto";
 
 @Component({
   selector: 'app-projection-card',
@@ -28,12 +29,13 @@ import {Router} from "@angular/router";
 export class ProjectionCardComponent implements OnInit {
 
   @Input() projection: Projection | null = null;
+  @Input() isLogged: boolean | null = false;
 
   timeStr: String = ''
 
   constructor(private storageService: StorageService,
-              private userService:UserService,
-              private router:Router) {
+              private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -41,9 +43,23 @@ export class ProjectionCardComponent implements OnInit {
   }
 
   public reserve(): void {
-    const map: Map<String, Number> = new Map();
-    map.set('userId', parseInt(this.storageService.get('id') as string))
-    map.set('projectionId', this.projection?.id as Number)
+
+    if (!this.isLogged) {
+      Swal.fire({
+        title: 'Cannot Reserve without an account',
+        text: 'You need to be logged in to reserve a projection',
+        icon: 'warning',
+        background: '#010013',
+        confirmButtonText: 'Log In',
+        confirmButtonColor: '#14256e',
+        showCancelButton: true
+      }).then(resp=>{
+        if(resp.isConfirmed){
+          this.router.navigateByUrl('login')
+        }
+      })
+      return
+    }
 
     Swal.fire({
       title: this.projection?.movie?.name,
@@ -56,8 +72,13 @@ export class ProjectionCardComponent implements OnInit {
     })
       .then(resp => {
         if (resp.isConfirmed) {
-          console.log(map)
-          this.userService.addToCatalog(map).subscribe(resp => this.router.navigateByUrl('/').then(()=>window.location.reload()))
+          const dto: AddCatalogDto = {
+            userId: this.storageService.get('id') as unknown as Number,
+            projectionId: this.projection?.id as unknown as Number
+          }
+          this.userService.addToCatalog(dto).subscribe(rsp => {
+            this.router.navigateByUrl('/').then(() => window.location.reload())
+          })
         }
       })
   }

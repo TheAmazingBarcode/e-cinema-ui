@@ -18,4 +18,8 @@ export class ProjectionService {
   public getProjectionsOfMovie(id:Number):Observable<Projection[]>{
     return this.client.get<Projection[]>(config.base_url+config.port+config.proj+config.mov+'/'+id);
   }
+
+  public getAvailableProjections(id:Number):Observable<Projection[]>{
+    return this.client.get<Projection[]>(config.base_url+config.port+config.proj+config.user+'/'+id);
+  }
 }

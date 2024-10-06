@@ -12,7 +12,6 @@ import {
 import {MatButton} from "@angular/material/button";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {GenreService} from "../services/genre.service";
 import {DataService} from "../services/data.service";
 import {StorageService} from "../services/storage.service";
 import {MovieCardComponent} from "./movie-card/movie-card.component";
@@ -21,6 +20,7 @@ import {UserComponent} from "../profile/user/user.component";
 import {Projection} from "../model/Projection";
 import {ProjectionService} from "../services/projection.service";
 import {ProjectionCardComponent} from "./projection-card/projection-card.component";
+import {CatalogComponent} from "./catalog/catalog.component";
 
 @Component({
   selector: 'app-movies',
@@ -38,7 +38,8 @@ import {ProjectionCardComponent} from "./projection-card/projection-card.compone
     MatTab,
     MatTabGroup,
     UserComponent,
-    ProjectionCardComponent
+    ProjectionCardComponent,
+    CatalogComponent
   ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
@@ -54,11 +55,18 @@ export class MoviesComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dataService: DataService,
-              private projectionService: ProjectionService
+              private projectionService: ProjectionService,
+              private storageService: StorageService
   ) {
   }
 
   ngOnInit() {
+    let id: Number = parseInt(this.storageService.get('id') as string)
+    if (this.storageService.get('id') !== null) {
+      this.isLogged = true;
+      this.projectionService.getAvailableProjections(id).subscribe(data => this.projections = data);
+    }
+
 
     this.route.paramMap.subscribe(params => {
       this.chooseQuery(params);
@@ -77,11 +85,13 @@ export class MoviesComponent implements OnInit {
         })
         break;
       case 'projection':
-        this.index = 1;
         this.movieService.getAllMovies().subscribe(data => {
           this.movies = data
         });
-        this.projectionService.getProjectionsOfMovie(parseInt(query.get('select') || '1')).subscribe(data => this.projections = data);
+        this.projectionService.getProjectionsOfMovie(parseInt(query.get('select') || '1')).subscribe(data => {
+          this.projections = data;
+          this.index = 1;
+        });
         break;
       case 'genre':
         this.index = 0;
