@@ -61,14 +61,8 @@ export class MoviesComponent implements OnInit {
   }
 
   ngOnInit() {
-    let id: Number = parseInt(this.storageService.get('id') as string)
-    if (this.storageService.get('id') !== null) {
-      this.isLogged = true;
-      this.projectionService.getAvailableProjections(id).subscribe(data => this.projections = data);
-    }
-
-
     this.route.paramMap.subscribe(params => {
+      if(this.storageService.get('id') !== null) this.isLogged = true
       this.chooseQuery(params);
     });
   }
@@ -79,16 +73,22 @@ export class MoviesComponent implements OnInit {
         this.index = 0;
         this.movieService.getAllMovies().subscribe(data => {
           this.movies = data
+          if (this.isLogged) {
+            let id: Number = parseInt(this.storageService.get('id') as string)
+            this.projectionService.getAvailableProjections(id).subscribe(data => this.projections = data);
+          } else {
+            this.projectionService.getAll().subscribe((data) => {
+              this.projections = data;
+            })
+          }
         });
-        this.projectionService.getAll().subscribe((data) => {
-          this.projections = data;
-        })
         break;
       case 'projection':
         this.movieService.getAllMovies().subscribe(data => {
           this.movies = data
         });
         this.projectionService.getProjectionsOfMovie(parseInt(query.get('select') || '1')).subscribe(data => {
+          console.log(data);
           this.projections = data;
           this.index = 1;
         });
@@ -96,6 +96,10 @@ export class MoviesComponent implements OnInit {
       case 'genre':
         this.index = 0;
         this.movieService.getMoviesByGenre(parseInt(query.get('select') || '1')).subscribe(data => this.movies = data);
+        break;
+      case 'search':
+        this.index = 0;
+        this.movieService.search(query.get('select') as string).subscribe(data => this.movies = data);
         break;
       default:
         this.index = 0;

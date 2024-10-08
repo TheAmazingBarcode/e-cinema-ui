@@ -24,4 +24,8 @@ export class MovieService {
     return this.client.post<Movie>(config.base_url+config.port+config.mov+config.new,movie);
   }
 
+  public search(query:string):Observable<Movie[]>{
+    return this.client.get<Movie[]>(config.base_url+config.port+config.mov+'/search?'+query);
+  }
+
 }
